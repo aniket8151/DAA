@@ -1,0 +1,157 @@
+euler's method:
+
+#include<stdio.h>
+float fun(float x,float y)
+{
+    float f;
+    f=x+y;
+    return f;
+}
+main()
+{
+    float a,b,x,y,h,t,k;
+    printf("\nEnter x0,y0,h,xn: ");
+    scanf("%f%f%f%f",&a,&b,&h,&t);
+    x=a;
+    y=b;
+    printf("\n  x\t  y\n");
+    while(x<=t)
+    {
+        k=h*fun(x,y);
+        y=y+k;
+        x=x+h;
+        printf("%0.3f\t%0.3f\n",x,y);
+    }
+}
+
+link:   https://www.codewithc.com/c-program-for-eulers-method/#:~:text=Source%20Code%20for%20Euler%E2%80%99s%20Method%20in%20C%3A%20%23include%3Cstdio.h%3E,while%28x%3C%3Dt%29%20%7B%20k%3Dh%2Afun%28x%2Cy%29%3B%20y%3Dy%2Bk%3B%20x%3Dx%2Bh%3B%20printf%28%22%250.3f%5Ct%250.3f%5Cn%22%2Cx%2Cy%29%3B%20%7D%20%7D
+
+runge kutta method:
+
+
+#include<stdio.h>
+#include<math.h>
+float f(float x,float y);
+int main()
+{
+    float x0,y0,m1,m2,m3,m4,m,y,x,h,xn;
+    printf("Enter x0,y0,xn,h:");
+    scanf("%f %f %f %f",&x0,&y0,&xn,&h);
+    x=x0;
+    y=y0;
+    printf("\n\nX\t\tY\n");
+    while(x<xn)
+    {
+        m1=f(x0,y0);
+        m2=f((x0+h/2.0),(y0+m1*h/2.0));
+        m3=f((x0+h/2.0),(y0+m2*h/2.0));
+        m4=f((x0+h),(y0+m3*h));
+        m=((m1+2*m2+2*m3+m4)/6);
+        y=y+m*h;
+        x=x+h;
+        printf("%f\t%f\n",x,y);
+    }
+}
+float f(float x,float y)
+{
+    float m;
+    m=(x-y)/(x+y);
+    return m;
+}
+
+link: https://www.codewithc.com/c-program-for-runge-kutta-method/#:~:text=In%20this%20program%20forRunge%20Kutta%20method%20in%20C%2C,Program%20for%20Runge%20Kutta%204%20Method%20%281st%20Order%29
+
+
+gauss jordan:
+
+
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+
+#define SIZE 10
+
+int main()
+{
+		 float a[SIZE][SIZE], x[SIZE], ratio;
+		 int i,j,k,n;
+		 clrscr();
+		 /* Inputs */
+		 /* 1. Reading number of unknowns */
+		 printf("Enter number of unknowns: ");
+		 scanf("%d", &n);
+		 /* 2. Reading Augmented Matrix */
+		 printf("Enter coefficients of Augmented Matrix:\n");
+		 for(i=1;i<=n;i++)
+		 {
+			  for(j=1;j<=n+1;j++)
+			  {
+				   printf("a[%d][%d] = ",i,j);
+				   scanf("%f", &a[i][j]);
+			  }
+		 }
+		 /* Applying Gauss Jordan Elimination */
+		 for(i=1;i<=n;i++)
+		 {
+			  if(a[i][i] == 0.0)
+			  {
+				   printf("Mathematical Error!");
+				   exit(0);
+			  }
+			  for(j=1;j<=n;j++)
+			  {
+				   if(i!=j)
+				   {
+					    ratio = a[j][i]/a[i][i];
+					    for(k=1;k<=n+1;k++)
+					    {
+					     	a[j][k] = a[j][k] - ratio*a[i][k];
+					    }
+				   }
+			  }
+		 }
+		 /* Obtaining Solution */
+		 for(i=1;i<=n;i++)
+		 {
+		  	x[i] = a[i][n+1]/a[i][i];
+		 }
+		 /* Displaying Solution */
+		 printf("\nSolution:\n");
+		 for(i=1;i<=n;i++)
+		 {
+		  	printf("x[%d] = %0.3f\n",i, x[i]);
+		 }
+		 getch();
+		 return(0);
+}
+
+output:
+
+Enter number of unknowns: 4
+Enter Coefficients of Augmented Matrix:
+a[1]1]= 1
+a[1]2]= 2
+a[1]3]= 3
+a[1]4]= -1
+a[1]5]= 10
+a[2]1]= 2
+a[2]2]= 3
+a[2]3]= -3
+a[2]4]= -1
+a[2]5]= 1
+a[3]1]= 2
+a[3]2]= -1
+a[3]3]= 2
+a[3]4]= 3
+a[3]5]= 7
+a[4]1]= 3
+a[4]2]= 2
+a[4]3]= -4
+a[4]4]= 3
+a[4]5]= 2
+
+Solution:
+x[1] = 1.000
+x[2] = 2.000
+x[3] = 2.000
+x[4] = 1.000
